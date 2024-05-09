@@ -1,3 +1,6 @@
+#include <omp.h>
+#include<cmath>
+
 class Physics {
 	private:
 		void LinSolve(int b, float x[], float x0[], float a, float c, int iter, int N);

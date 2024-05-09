@@ -14,7 +14,7 @@ void Simulator::Run() {
 					break;
 				case sf::Event::KeyReleased:
 					if (e.key.code == sf::Keyboard::Key::C) {
-						color = (color + 1)%3;
+						color = (color + 1)%2;
 					}
 					break;
 				default:
