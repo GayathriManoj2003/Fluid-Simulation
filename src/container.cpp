@@ -12,31 +12,37 @@ Container::Container(float dt, float diff, float visc) : physics(Physics()){
 	this->diff = diff;
 	this->visc = visc;
 
-	this->InitArr(this->px, SIZE*SIZE);
-	this->InitArr(this->py, SIZE*SIZE);
-	this->InitArr(this->x, SIZE*SIZE);
-	this->InitArr(this->y, SIZE*SIZE);
-	this->InitArr(this->previousDensity, SIZE*SIZE);
-	this->InitArr(this->density, SIZE*SIZE);
+	this->InitArr(this->px, SIZE);
+	this->InitArr(this->py, SIZE);
+	this->InitArr(this->x, SIZE);
+	this->InitArr(this->y, SIZE);
+	this->InitArr(this->previousDensity, SIZE);
+	this->InitArr(this->density, SIZE);
 }
 
-void Container::InitArr(float arr[], int size) {
+void Container::InitArr(float arr[][SIZE], int size) {
 	#pragma omp parallel
 		#pragma omp for
 		for (int i = 0; i < size; i++) {
-			arr[i] = 0;
-		}1
+            #pragma omp for
+			for (int j = 0; j < size; j++) {
+			    arr[i][j] = 0;
+			}
+		}
 }
 
-void Container::AddDensity(float x, float y, float amount) {
-	this->density[get1DIndex(x,y,this->size)] += amount;
+void Container::AddDensity(float i, float j, float amount) {
+	int i1=int(i);
+	int j1=int(j);
+	this->density[i1][j1] += amount;
 }
 
-void Container::AddVelocity(float x, float y, float px, float py) {
-	int index = get1DIndex(x,y,this->size);
-
-	this->x[index] += px;
-	this->y[index] += py;
+void Container::AddVelocity(float i, float j, float px, float py) {
+	
+    int i1=int(i);
+	int j1=int(j);
+	x[i1][j1] += px;
+	y[i1][j1] += py;
 }
 
 void Container::Step() {
@@ -79,11 +85,11 @@ void Container::Render(sf::RenderWindow& win, int color) {
 
 				switch (color) {
 					case 0:
-						rect.setFillColor(sf::Color(255, 255, 255, (this->density[get1DIndex(i,j,this->size)] > 255) ? 255 : this->density[get1DIndex(i,j,this->size)]));
+						rect.setFillColor(sf::Color(255, 255, 255, (this->density[i][j] > 255) ? 255 : this->density[i][j]));
 						break;
 					case 1: {
-							int r = (int)this->MapToRange(this->x[get1DIndex(i,j,this->size)], -0.01f, 0.01f, 0, 255);
-							int g = (int)this->MapToRange(this->y[get1DIndex(i,j,this->size)], -0.01f, 0.01f, 0, 255);
+							int r = (int)this->MapToRange(this->x[i][j], -0.01f, 0.01f, 0, 255);
+							int g = (int)this->MapToRange(this->y[i][j], -0.01f, 0.01f, 0, 255);
 							rect.setFillColor(sf::Color(r, g, 200));
 							break;
 						}
@@ -100,8 +106,12 @@ void Container::FadeDensity(int size) {
 	{
 		#pragma omp for
 		for (int i = 0; i < size; i++) {
-			float d = this->density[i];
-			density[i] = (d - 0.05f < 0) ? 0 : d - 0.05f;
+			#pragma omp for
+			for(int j=0; j<size; j++)
+			{
+			  float d = this->density[i][j];
+			  density[i][j] = (d - 0.05f < 0) ? 0 : d - 0.05f;
+			}
 		}
 	}
 }

@@ -39,7 +39,7 @@ void Simulator::Run() {
 
 		this->container.Step();
 		this->container.Render(window, color);
-		this->container.FadeDensity(SIZE*SIZE);
+		this->container.FadeDensity(SIZE);
 
 		window.display();
 	}
