@@ -12,7 +12,7 @@ To address this issue, we have utilized OpenMP to parallelize specific segments 
 
 ## Demo
 
-    ![here](demo/demo.gif).
+  ![1715274661323](image/README/1715274661323.png).
 
 ## References
 
