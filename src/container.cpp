@@ -38,7 +38,6 @@ void Container::AddDensity(float i, float j, float amount) {
 }
 
 void Container::AddVelocity(float i, float j, float px, float py) {
-	
     int i1=int(i);
 	int j1=int(j);
 	x[i1][j1] += px;
@@ -82,19 +81,7 @@ void Container::Render(sf::RenderWindow& win, int color) {
 				sf::RectangleShape rect;
 				rect.setSize(sf::Vector2f(SCALE, SCALE));
 				rect.setPosition(j * SCALE, i * SCALE);
-
-				switch (color) {
-					case 0:
-						rect.setFillColor(sf::Color(255, 255, 255, (this->density[i][j] > 255) ? 255 : this->density[i][j]));
-						break;
-					case 1: {
-							int r = (int)this->MapToRange(this->x[i][j], -0.01f, 0.01f, 0, 255);
-							int g = (int)this->MapToRange(this->y[i][j], -0.01f, 0.01f, 0, 255);
-							rect.setFillColor(sf::Color(r, g, 200));
-							break;
-						}
-				};
-
+				rect.setFillColor(sf::Color(255, 255, 255, (this->density[i][j] > 255) ? 255 : this->density[i][j]));
 				win.draw(rect);
 			}
 		}
