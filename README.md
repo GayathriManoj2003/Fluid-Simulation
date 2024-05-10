@@ -21,5 +21,5 @@ To address this issue, we have utilized OpenMP to parallelize specific segments 
 
 ## Contributors
 
-- Gayathri Manoj
-- Sai Manasa Nadimpalli
+- Gayathri Manoj ([@GayathriManoj2003](https://github.com/GayathriManoj2003))
+- Sai Manasa Nadimpalli ([@Mana120](https://github.com/Mana120))
