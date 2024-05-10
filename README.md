@@ -14,6 +14,22 @@ To address this issue, we have utilized OpenMP to parallelize specific segments 
 
   ![1715274661323](image/README/1715274661323.png).
 
+## Usage
+
+**Adding Density**: Press the left mouse button to add density to the focused fluid cell.
+
+**Applying Force**: Drag the mouse to apply force in the direction of movement.
+
+## Build
+
+```shell
+# Install Dependency (SFML Graphics Library)
+sudo apt-get install libsfml-dev
+
+# Build The Project
+make build
+```
+
 ## References
 
 - [Real-time Fluid Dynamics for Games](https://damassets.autodesk.net/content/dam/autodesk/www/autodesk-reasearch/Publications/pdf/realtime-fluid-dynamics-for.pdf)
